@@ -43,9 +43,9 @@ class Yelp(object):
 if __name__ == "__main__":
 
     yelp = Yelp(KEY)
-    result = yelp.search('fast food', 'San Francisco', 50000, 1, limit=50)
+    result = yelp.search('chinese food', 'San Francisco', 5000, 1, limit=50)
     business = result['data']['search']['business']
-    short_list = yelp.key_filter(business, 'rating', 2, 3)
+    short_list = yelp.key_filter(business, 'rating', 2, 4)
     #short_list = yelp.get_info(short_list, 'display_phone')
     #print(short_list)
     to_csv("result.csv", short_list)

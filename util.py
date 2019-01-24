@@ -16,7 +16,6 @@ def flattenjson(b, delim):
 def to_csv(fname, result):
     input = list(map(lambda x: flattenjson(x, "_"), result))
     columns = list(set(x for y in input for x in y.keys()))
-    import pdb; pdb.set_trace()
     with open(fname, 'w') as out_file:
         csv_w = csv.writer(out_file)
         csv_w.writerow(columns)
