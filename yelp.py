@@ -4,8 +4,8 @@ from query import make_search, business_details
 
 class Yelp(object):
 
-    def __init__(self):
-        self.headers = {"Authorization": 'Bearer '+KEY, "Content-Type": "application/graphql"}
+    def __init__(self, api_key):
+        self.headers = {"Authorization": 'Bearer ' + api_key, "Content-Type": "application/graphql"}
         self.url = "https://api.yelp.com/v3/graphql"
     
     def search(self, term, location, radius, price, limit=50):
@@ -14,8 +14,8 @@ class Yelp(object):
         price: "$" - "$$$$"
         radius: 1000 (meters)
         """
-        #search_query = make_search(term, location, radius, price, limit=50)
-        search_query = business_details('garaje-san-francisco')
+        search_query = make_search(term, location, radius, price, limit=5)
+        #search_query = business_details('garaje-san-francisco')
         request = requests.post(self.url, headers=self.headers, data=search_query)
         if request.status_code == 200:
             return request.json()
@@ -29,5 +29,5 @@ class Yelp(object):
 
 if __name__ == "__main__":
 
-    test = Yelp()
-    print(test.search('chinese', 'San Francisco', 1000, '$', limit=2))
+    test = Yelp(KEY)
+    print(test.search('fast food', 'San Francisco', 10000, '$', limit=2))
