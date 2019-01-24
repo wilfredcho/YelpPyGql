@@ -10,14 +10,13 @@ def make_search(term, location, radius, price, limit=50):
                     day\
                 }\
             }\
-
     """
     return '\
     {\
-        search(term: "'+ str(term) + '",\
-               location: "' + str(location) +'",\
+        search(term: "' + str(term) + '",\
+               location: "' + str(location) + '",\
                price: "' + str(price) + '",\
-               limit: ' + str(limit) + '){\
+               limit: ' + str(limit) + ') {\
                     total\
                     business{\
                         name\
@@ -35,31 +34,12 @@ def make_search(term, location, radius, price, limit=50):
                 }\
     }\
     '
-    """
-    return '\
-    {\
-        search(term:"' + term +'",\
-        location:"' + location + '") {\
-            total\
-            business {\
-                name\
-                hours {\
-                    is_open_now\
-                    open {\
-                        start\
-                        end\
-                        }\
-                }\
-            }\
-        }\
-    }\
-    '
-    """
+
 
 def business_details(id):
     return '\
     {\
-            business(id: "'+ id + '"){\
+            business(id: "' + id + '"){\
                 name\
                 id\
                 location {\
