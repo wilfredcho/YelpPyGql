@@ -1,6 +1,6 @@
 import requests
 
-from config import KEY
+from config import *
 from itertools import product
 from query import make_search
 from util import to_csv
@@ -25,6 +25,17 @@ class Yelp(object):
         else:
             raise Exception("Request: " + str(request.status_code) + "\n"
                             + str(request.content))
+    
+    def run(self, term, category, city, radius, price, ratings):
+        print("Total csv: " + str(len(list(product(term, city, radius, price, category, ratings)))))
+        for combo in product(term, city, radius, price, category, ratings):
+            result = yelp.search(combo[0], combo[1], combo[2], combo[3], combo[4], limit=50)
+            business = result['data']['search']['business']
+            short_list = yelp.key_filter(business, 'rating', combo[5][0], combo[5][1])
+            name = combo[4] + '-' + combo[0] + '-' + combo[1] + '-' + str(combo[2]) + \
+            '-' + str(combo[3]) + '-' + str(combo[5][0]) + '-' + str(combo[5][1])
+            name = name.replace(' ', '_')
+            to_csv(name + ".csv", short_list)
 
     @staticmethod
     def key_filter(result, key, lower, upper):
@@ -37,18 +48,4 @@ class Yelp(object):
 
 if __name__ == "__main__":
     yelp = Yelp(KEY)
-    term = ['chinese']
-    category = ['restaurants']
-    city = ['San Francisco']
-    radius = [5000]
-    price = [1, 2, 3, 4]
-    ratings = [(2,3), (3,4), (4,5)]
-    print(len(list(product(term, city, radius, price, category, ratings))))
-    for combo in product(term, city, radius, price, category, ratings):
-        result = yelp.search(combo[0], combo[1], combo[2], combo[3], combo[4], limit=50)
-        business = result['data']['search']['business']
-        short_list = yelp.key_filter(business, 'rating', combo[5][0], combo[5][1])
-        name = combo[4] + '-' + combo[0] + '-' + combo[1] + '-' + str(combo[2]) + \
-        '-' + str(combo[3]) + '-' + str(combo[5][0]) + '-' + str(combo[5][1])
-        name = name.replace(' ', '_')
-        to_csv(name + ".csv", short_list)
+    yelp.run(term, category, city, radius, price, ratings)
