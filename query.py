@@ -1,21 +1,11 @@
-def make_search(term, location, radius, price, limit=50):
-    """
-    radius: ' + str(radius) + ',\
-
-    url\
-    hours{\
-                open{\
-                    start\
-                    end\
-                    day\
-                }\
-            }\
-    """
+def make_search(term, location, radius, price, category, limit=50):
     return '\
     {\
         search(term: "' + str(term) + '",\
                location: "' + str(location) + '",\
+               radius: ' + str(radius) + ',\
                price: "' + str(price) + '",\
+               categories: "' + str(category) + '",\
                limit: ' + str(limit) + ') {\
                     total\
                     business{\
@@ -23,6 +13,7 @@ def make_search(term, location, radius, price, limit=50):
                         rating\
                         review_count\
                         display_phone\
+                        url\
                         location{\
                             address1\
                             city\
