@@ -41,10 +41,6 @@ class Yelp(object):
     def key_filter(result, key, lower, upper):
         return list(filter(lambda x: lower <= x[key] < upper, result))
 
-    @staticmethod
-    def get_info(result, key):
-        return list(map(lambda x: x[key], result))
-
 
 if __name__ == "__main__":
     yelp = Yelp(KEY)

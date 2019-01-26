@@ -17,6 +17,8 @@ Clone this repository, install the packages in the requirement.txt
 `radius = [5000]` <br />
 `price = [1, 2, 3, 4]` <br />
 `ratings = [(2,3), (3,4), (4,5)]` <br />
+- modify query.py the way you want =) <br />
+refer to [https://www.yelp.com/developers/graphql/query/search]
 - run `python yelp.py`
 - A csv file will be generated with the settings.
 

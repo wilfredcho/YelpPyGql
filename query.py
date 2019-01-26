@@ -11,6 +11,7 @@ def make_search(term, location, radius, price, category, limit=50):
                     business{\
                         name\
                         rating\
+                        price\
                         review_count\
                         display_phone\
                         url\
@@ -21,21 +22,12 @@ def make_search(term, location, radius, price, category, limit=50):
                             postal_code\
                             country\
                         }\
+                        categories {\
+                            parent_categories {\
+                                title\
+                            }\
+                        }\
                     }\
                 }\
     }\
-    '
-
-
-def business_details(id):
-    return '\
-    {\
-            business(id: "' + id + '"){\
-                name\
-                id\
-                location {\
-                    city\
-                }\
-            }\
-        }\
     '
