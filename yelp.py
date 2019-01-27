@@ -2,7 +2,7 @@ import requests
 
 from config import *
 from itertools import product
-from query import make_search
+from query import make_search, make_gps_search
 from util import to_csv
 
 
@@ -36,6 +36,29 @@ class Yelp(object):
             '-' + str(combo[3]) + '-' + str(combo[5][0]) + '-' + str(combo[5][1])
             name = name.replace(' ', '_')
             to_csv(name + ".csv", short_list)
+    
+    def gps_search(self, term, gps, radius, price, category, limit=50):
+        search_query = make_gps_search(term, gps[0], gps[1], radius, price, category, limit=limit)
+        request = requests.post(
+            self.url,
+            headers=self.headers,
+            data=search_query)
+        if request.status_code == 200:
+            return request.json()
+        else:
+            raise Exception("Request: " + str(request.status_code) + "\n"
+                            + str(request.content))
+    
+    def gps_run(self, term, category, gps, radius, price, ratings):
+        print("Total csv: " + str(len(list(product(term, gps, radius, price, category, ratings)))))
+        for combo in product(term, gps, radius, price, category, ratings):
+            result = yelp.gps_search(combo[0], combo[1], combo[2], combo[3], combo[4], limit=50)
+            business = result['data']['search']['business']
+            short_list = yelp.key_filter(business, 'rating', combo[5][0], combo[5][1])
+            name = combo[4] + '-' + combo[0] + '-' + str(combo[2]) + \
+            '-' + str(combo[3]) + '-' + str(combo[5][0]) + '-' + str(combo[5][1])
+            name = name.replace(' ', '_')
+            to_csv(name + ".csv", short_list)
 
     @staticmethod
     def key_filter(result, key, lower, upper):
@@ -44,4 +67,5 @@ class Yelp(object):
 
 if __name__ == "__main__":
     yelp = Yelp(KEY)
-    yelp.run(term, category, city, radius, price, ratings)
+    #yelp.run(term, category, city, radius, price, ratings)
+    yelp.gps_run(term, category, gps, radius, price, ratings)
