@@ -20,12 +20,17 @@ def make_search(term, location, radius, price, category, limit=50):
                             city\
                             state\
                             postal_code\
-                            country\
                         }\
-                        categories {\
-                            parent_categories {\
+                        categories{\
+                            parent_categories{\
                                 title\
                             }\
+                        }\
+                        hours{\
+                            open{\
+                                    start\
+                                    end\
+                                }\
                         }\
                     }\
                 }\
@@ -54,12 +59,17 @@ def make_gps_search(term, latitude, longitude, radius, price, category, limit=50
                             city\
                             state\
                             postal_code\
-                            country\
                         }\
                         categories {\
                             parent_categories {\
                                 title\
                             }\
+                        }\
+                        hours{\
+                            open{\
+                                    start\
+                                    end\
+                                }\
                         }\
                     }\
                 }\
