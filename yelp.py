@@ -14,8 +14,8 @@ class Yelp(object):
             "Content-Type": "application/graphql"}
         self.url = "https://api.yelp.com/v3/graphql"
 
-    def search(self, term, location, radius, price, category, limit=50):
-        search_query = make_search(term, location, radius, price, category, limit=5)
+    def search(self, term, location, radius, price, category, attribute, limit=50):
+        search_query = make_search(term, location, radius, price, category, attribute, limit=5)
         request = requests.post(
             self.url,
             headers=self.headers,
@@ -37,8 +37,8 @@ class Yelp(object):
             name = name.replace(' ', '_')
             to_csv(name + ".csv", short_list)
     
-    def gps_search(self, term, gps, radius, price, category, limit=50):
-        search_query = make_gps_search(term, gps[0], gps[1], radius, price, category, limit=limit)
+    def gps_search(self, term, gps, radius, price, category, attribute, limit=50):
+        search_query = make_gps_search(term, gps[0], gps[1], radius, price, category, attribute, limit=limit)
         request = requests.post(
             self.url,
             headers=self.headers,
@@ -49,14 +49,14 @@ class Yelp(object):
             raise Exception("Request: " + str(request.status_code) + "\n"
                             + str(request.content))
     
-    def gps_run(self, term, category, gps, radius, price, ratings):
-        print("Total csv: " + str(len(list(product(term, gps, radius, price, category, ratings)))))
-        for combo in product(term, gps, radius, price, category, ratings):
-            result = yelp.gps_search(combo[0], combo[1], combo[2], combo[3], combo[4], limit=50)
+    def gps_run(self, term, category, gps, radius, price, ratings, attribute):
+        print("Total csv: " + str(len(list(product(term, gps, radius, price, category, ratings, attribute)))))
+        for combo in product(term, gps, radius, price, category, ratings, attribute):
+            result = yelp.gps_search(combo[0], combo[1], combo[2], combo[3], combo[4], combo[6], limit=50)
             business = result['data']['search']['business']
             short_list = yelp.key_filter(business, 'rating', combo[5][0], combo[5][1])
             name = combo[4] + '-' + combo[0] + '-' + str(combo[2]) + \
-            '-' + str(combo[3]) + '-' + str(combo[5][0]) + '-' + str(combo[5][1])
+            '-' + str(combo[3]) + '-' + str(combo[5][0]) + '-' + str(combo[5][1]) + '-' + str(combo[6])
             name = name.replace(' ', '_')
             to_csv(name + ".csv", short_list)
 
@@ -68,4 +68,4 @@ class Yelp(object):
 if __name__ == "__main__":
     yelp = Yelp(KEY)
     #yelp.run(term, category, city, radius, price, ratings)
-    yelp.gps_run(term, category, gps, radius, price, ratings)
+    yelp.gps_run(term, category, gps, radius, price, ratings, attribute)

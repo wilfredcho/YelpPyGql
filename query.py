@@ -1,4 +1,4 @@
-def make_search(term, location, radius, price, category, limit=50):
+def make_search(term, location, radius, price, category, attribute, limit=50):
     return '\
     {\
         search(term: "' + str(term) + '",\
@@ -6,6 +6,7 @@ def make_search(term, location, radius, price, category, limit=50):
                radius: ' + str(radius) + ',\
                price: "' + str(price) + '",\
                categories: "' + str(category) + '",\
+               attributes: "' + str(attribute) + '",\
                limit: ' + str(limit) + ') {\
                     total\
                     business{\
@@ -36,7 +37,7 @@ def make_search(term, location, radius, price, category, limit=50):
                 }\
     }\
     '
-def make_gps_search(term, latitude, longitude, radius, price, category, limit=50):
+def make_gps_search(term, latitude, longitude, radius, price, category, attribute, limit=50):
     return '\
     {\
         search(term: "' + str(term) + '",\
@@ -45,6 +46,7 @@ def make_gps_search(term, latitude, longitude, radius, price, category, limit=50
                radius: ' + str(radius) + ',\
                price: "' + str(price) + '",\
                categories: "' + str(category) + '",\
+               attributes: "' + str(attribute) + '",\
                limit: ' + str(limit) + ') {\
                     total\
                     business{\
