@@ -49,7 +49,6 @@ class Yelp(object):
                 short_list = yelp.key_filter(business, 'rating', rating[0], rating[1])
                 name = self._file_namer(rating, combo[0], combo[1], combo[2], combo[3], combo[4], combo[5])
                 if short_list:
-                    import pdb; pdb.set_trace()
                     to_csv(name + ".csv", short_list)
                 else:
                     print('No match for ' + name)
