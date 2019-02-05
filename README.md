@@ -13,10 +13,11 @@ Clone this repository, install the packages in the requirement.txt
 `KEY = 'YOUR API KEY' ` <br />
 `term = ['italian']` <br />
 `category = ['restaurants']` <br />
-`city = ['San Francisco']` <br />
+`location = ['San Francisco'] or [(37.783428, -122.402712)]` <br />
 `radius = [5000]` <br />
 `price = [1, 2, 3, 4]` <br />
 `ratings = [(2,3), (3,4), (4,5)]` <br />
+`attribute = ["hot_and_new"]` <br />
 - modify query.py the way you want =) <br />
 refer to [https://www.yelp.com/developers/graphql/query/search]
 - run `python yelp.py`
