@@ -7,10 +7,11 @@ Clone this repository, install the packages in the requirement.txt
 
 ## How to use?
 - git clone and cd to repo.
-- Obtain Yelp API Key and join Yelp GraphQL Beta
-- create your config.py with the following format
+- Obtain Yelp API Key and join Yelp GraphQL Beta, create and place it in config.py
 - example: <br />
-`KEY = 'YOUR API KEY' ` <br />
+`KEY = 'YOUR API KEY'` <br />
+- create your param.py with the following format
+- example: <br />
 `term = ['italian']` <br />
 `category = ['restaurants']` <br />
 `location = ['San Francisco'] or [(37.783428, -122.402712)]` <br />

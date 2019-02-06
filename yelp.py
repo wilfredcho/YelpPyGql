@@ -1,6 +1,7 @@
 import requests
 
-from config import *
+from param import *
+from config import CLIENT, KEY
 from itertools import product
 from query import make_search, check_location
 from util import to_csv
