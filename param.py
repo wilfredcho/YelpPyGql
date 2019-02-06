@@ -1,0 +1,8 @@
+term = ['restaurants']
+category = ['restaurants']
+#location = ['San Francisco']
+location = [(37.783428, -122.402712)]
+radius = [3000]
+price = [1,2,3]
+ratings = [(3,4), (4,5)]
+attribute = ["deals"]
